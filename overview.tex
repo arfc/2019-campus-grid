@@ -1,0 +1,33 @@
+\begin{frame}
+  \frametitle{Overview}
+  % a comment
+  \begin{adjustbox}{max totalsize={0.9\textwidth}{0.7\textheight}, center}
+    \begin{tikzpicture}[node distance = 3.5cm, auto, scale=0.25]
+        \node (demand) [load] {Net Demand\\\small{\textit{Total Demand - Solar Produced}}};
+        \node (ND) [decision, below of = demand] {\textbf{ND $>$ 0?}};
+        \node (abbott) [supply, right of = ND] {Abbott (20-45MWe)};
+        \node (isfull) [decision, below of = abbott] {Demand Satisfied?};
+        \node (surplus) [extra, left of = isfull] {Surplus Energy};
+        \node (purchase) [import, right of = isfull] {Power Purchase (60 MWe)};
+        \node (buyback) [flexible, below of = surplus] {Excess power is sold to grid};
+        \node (chilledwater) [flexible, left of = buyback] {Chilled Water};
+  
+        % \node (d1) [load, draw=none, below of = purchase] {\textbf{??}};
+  
+        \draw [arrow] (demand) -- (ND);
+        \draw [arrow] (ND) -- node [text width = 1cm, midway, align=center] {No} (surplus);
+        \draw [arrow] (ND) -- node [text width = 1cm, midway, above, align=center] {Yes} (abbott);
+        \draw [arrow] (abbott) -- (isfull);
+        \draw [arrow] (isfull) -- node [text width = 1cm, midway, above, align=center] {Yes} (surplus);
+        \draw [arrow] (isfull) -- node [text width = 2cm, midway, above, align=center] { No } (purchase);
+        \draw [arrow] (surplus) -- (chilledwater);
+        % \draw [arrow] (purchase) -- (d1);
+        \draw [arrow] (surplus) -- (buyback);
+      \end{tikzpicture}
+    
+  \end{adjustbox}
+
+  \captionof{figure}{The University of Illinois Energy Prioritization}
+
+  \end{frame}
+  % }
